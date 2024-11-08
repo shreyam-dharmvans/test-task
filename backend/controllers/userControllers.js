@@ -1,17 +1,19 @@
 import User from '../model/userSchema.js';
+import { createToken } from '../utils/token.js';
 
 export const signup = async (req, res) => {
     try {
         let { username, email } = req.body;
 
-        if (!username || !email) {
-            return res.status(400).json({ message: 'Please fill all fields' });
-        }
+        // if (!username || !email) {
+        //     return res.status(400).json({ message: 'Please fill all fields' });
+        // }
 
         let result = await User.find({ username, email });
 
-        if (result) {
-            res.status(400).json({
+        if (result.length != 0) {
+            console.log(result)
+            return res.status(400).json({
                 success: false,
                 message: "Username already exists"
             });
@@ -28,11 +30,12 @@ export const signup = async (req, res) => {
             success: true,
             message: "User created successfully. Please singin"
         })
+
     } catch (error) {
         console.log("Erron singing up" + error);
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
-            message: "Error singing up"
+            message: error
         })
     }
 
@@ -48,8 +51,8 @@ export const signin = async (req, res) => {
 
         let result = await User.find({ username, email });
 
-        if (!result) {
-            res.status(400).json({
+        if (result.length == 0) {
+            return res.status(400).json({
                 success: false,
                 message: "User not found"
             });
@@ -68,7 +71,8 @@ export const signin = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: "user successfully signed in"
+            message: "user successfully signed in",
+            user: result
         })
     } catch (error) {
         console.log("Erron singing in" + error);
@@ -88,6 +92,12 @@ export const signout = async (req, res) => {
             sameSite: 'none',
             secure: true
         });
+
+        return res.status(200).json({
+            success: true,
+            message: "user successfully signed out"
+        })
+
     } catch (error) {
         console.log("Erron singing out" + error);
         return res.status(400).json({
