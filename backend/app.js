@@ -22,7 +22,7 @@ async function main() {
 const app = express();
 const port = 8080 || process.env.PORT;
 
-app.use(cors({ origin: "hhttps://testttasks.netlify.app", credentials: true }));
+app.use(cors({ origin: "https://testttasks.netlify.app", credentials: true }));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
