@@ -3,6 +3,7 @@ import { Button } from '../ui/button'
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import axios from 'axios';
+import { User } from '@/types/UserType';
 
 const Header = ({ setUser }: { setUser: React.Dispatch<React.SetStateAction<User | null>> }) => {
     const navigate = useNavigate();
