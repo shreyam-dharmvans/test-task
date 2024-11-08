@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import axios from 'axios'
 import { Toaster } from './components/ui/toaster.tsx'
 
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = 'https://test-task-o1hy.onrender.com';
 axios.defaults.withCredentials = true;
 
 createRoot(document.getElementById('root')!).render(
