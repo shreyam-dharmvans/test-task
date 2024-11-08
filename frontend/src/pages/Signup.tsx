@@ -1,7 +1,5 @@
 import { useToast } from '@/hooks/use-toast';
-import { User } from '@/types/UserType'
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { signupSchema as formSchema } from '@/zodSchemas/signupSchema';
 import { z } from 'zod';
@@ -9,7 +7,6 @@ import axios from 'axios';
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -17,13 +14,10 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from '@/components/ui/button';
-import { Loader } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     const { toast } = useToast();
-
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
 
@@ -37,7 +31,6 @@ const Signup = () => {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
-            setIsLoading(true);
             let res = await axios.post('/user/signup', values);
 
             if (res.data.success) {
@@ -55,8 +48,6 @@ const Signup = () => {
                 variant: "destructive",
             })
         }
-
-        setIsLoading(false);
         form.reset();
 
     }

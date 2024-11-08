@@ -9,7 +9,6 @@ import axios from 'axios';
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -17,13 +16,10 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from '@/components/ui/button';
-import { Loader } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Signin = ({ setUser }: { setUser: React.Dispatch<React.SetStateAction<User | null>> }) => {
     const { toast } = useToast();
-
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
 
@@ -37,7 +33,6 @@ const Signin = ({ setUser }: { setUser: React.Dispatch<React.SetStateAction<User
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
-            setIsLoading(true);
             let res = await axios.post('/user/signin', values);
 
             if (res.data.success) {
@@ -58,7 +53,6 @@ const Signin = ({ setUser }: { setUser: React.Dispatch<React.SetStateAction<User
             })
         }
 
-        setIsLoading(false);
         form.reset();
 
     }
